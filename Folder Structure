@@ -1,0 +1,6 @@
+your-app/
+│
+├── server.js           ← Main Express app
+├── scraper.js          ← Puppeteer logic
+├── downloads/          ← Saved files (auto-created)
+└── package.json
