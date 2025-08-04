@@ -7,7 +7,17 @@ const downloadsDir = path.resolve(__dirname, 'downloads');
 fs.ensureDirSync(downloadsDir);
 
 async function downloadFromInstagram(url, index) {
-  const browser = await puppeteer.launch({ headless: 'new' });
+  const browser = await puppeteer.launch({
+    headless: 'new',
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--single-process'
+    ]
+  });
+
   const page = await browser.newPage();
 
   try {
@@ -53,6 +63,7 @@ async function downloadFromInstagram(url, index) {
       caption: `/downloads/${path.basename(captionPath)}`
     };
   } catch (error) {
+    console.error(`Error scraping ${url}:`, error.message);
     return { url, error: error.message };
   } finally {
     await browser.close();
