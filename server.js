@@ -27,6 +27,10 @@ app.post('/download', async (req, res) => {
   res.json({ status: 'done', results });
 });
 
+app.get('/', (req, res) => {
+  res.send('✅ API is running');
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
